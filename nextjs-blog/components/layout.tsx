@@ -7,7 +7,7 @@ import Link from "next/link";
 
 interface LayoutProps {
   children: ReactNode;
-  home: boolean;
+  home?: boolean;
 }
 
 const name = "Your Name";

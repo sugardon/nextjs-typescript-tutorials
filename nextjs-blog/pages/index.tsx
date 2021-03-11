@@ -3,8 +3,7 @@ import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const Home = () => {
+export const Home: React.FC = () => {
   return (
     <Layout home>
       <Head>
