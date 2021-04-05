@@ -42,3 +42,50 @@ export function getSortedPostsData(): PostData[] {
   });
   return sortedAllPostsData;
 }
+
+export interface PostId {
+  params: {
+    id: string;
+  };
+}
+
+export const getAllPostsIds = (): PostId[] => {
+  const fileNames = fs.readdirSync(postsDirectory);
+  // Returns an array that looks like this:
+  // [
+  //   {
+  //     params: {
+  //       id: 'ssg-ssr'
+  //     }
+  //   },
+  //   {
+  //     params: {
+  //       id: 'pre-rendering'
+  //     }
+  //   }
+  // ]
+  const allPostId: PostId[] = fileNames.map((fileName) => {
+    const pi: PostId = {
+      params: {
+        id: fileName.replace(/\.md$/, ""),
+      },
+    };
+    return pi;
+  });
+
+  return allPostId;
+};
+
+export const getPostData = (id: string): PostData => {
+  const fullPath = path.join(postsDirectory, `${id}.md`);
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+
+  // Use gray-matter to parse the post metadata section
+  const matterResult = matter(fileContents);
+
+  return {
+    id,
+    date: matterResult.data.date,
+    title: matterResult.data.title,
+  };
+};
