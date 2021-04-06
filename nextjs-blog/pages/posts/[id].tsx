@@ -7,6 +7,9 @@ import Date from "../../components/date";
 import utilStyles from "../../styles/utils.module.css";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  // [...id].tsx のような指定方法だと params.id はリストになる
+  // cf. https://nextjs.org/learn/basics/dynamic-routes/dynamic-routes-details
+  // cf. https://nextjs.org/docs/routing/dynamic-routes#catch-all-routes
   const postData = await getPostData(params.id as string);
   return {
     props: {
@@ -15,10 +18,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
+// cf. https://nextjs.org/learn/basics/dynamic-routes/dynamic-routes-details
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = getAllPostsIds();
   return {
     paths,
+    // cf. https://nextjs.org/learn/basics/dynamic-routes/dynamic-routes-details
+    // cf. https://nextjs.org/docs/basic-features/data-fetching#the-fallback-key-required
     fallback: false,
   };
 };
