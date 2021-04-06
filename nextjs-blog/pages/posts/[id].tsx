@@ -2,6 +2,9 @@ import React from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Layout from "../../components/layout";
 import { getAllPostsIds, getPostData, PostData } from "../../lib/posts";
+import Head from "next/head";
+import Date from "../../components/date";
+import utilStyles from "../../styles/utils.module.css";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const postData = await getPostData(params.id as string);
@@ -23,15 +26,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
 interface PostProps {
   postData: PostData;
 }
-export const Post: React.FC<PostProps> = (props: PostProps) => {
+export const Post: React.FC<PostProps> = ({ postData }: PostProps) => {
   return (
     <Layout>
-      {props.postData.title}
-      <br />
-      {props.postData.id}
-      <br />
-      {props.postData.date}
-      <div dangerouslySetInnerHTML={{ __html: props.postData.contentHtml }} />
+      <Head>
+        <title>{postData.title}</title>
+      </Head>
+      <article>
+        <h1 className={utilStyles.headingX1}>{postData.title}</h1>
+        <div>
+          <Date dateString={postData.date} />
+        </div>
+        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      </article>
     </Layout>
   );
 };
