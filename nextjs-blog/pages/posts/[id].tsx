@@ -4,7 +4,7 @@ import Layout from "../../components/layout";
 import { getAllPostsIds, getPostData, PostData } from "../../lib/posts";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postData = getPostData(params.id as string);
+  const postData = await getPostData(params.id as string);
   return {
     props: {
       postData,
@@ -31,6 +31,7 @@ export const Post: React.FC<PostProps> = (props: PostProps) => {
       {props.postData.id}
       <br />
       {props.postData.date}
+      <div dangerouslySetInnerHTML={{ __html: props.postData.contentHtml }} />
     </Layout>
   );
 };
