@@ -1,0 +1,34 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextjs-blog
+spec:
+  ports:
+    - name: next
+      port: 8080
+      protocol: TCP
+      targetPort: next
+  selector:
+    app: nextjs-blog
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextjs-blog
+spec:
+  selector:
+    matchLabels:
+      app: nextjs-blog
+  template:
+    metadata:
+      labels:
+        app: nextjs-blog
+    spec:
+      containers:
+        - name: nextjs-blog
+          image: nextjs-blog-image
+          ports:
+            - name: next
+              containerPort: 8080

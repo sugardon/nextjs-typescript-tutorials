@@ -1,0 +1,29 @@
+---
+apiVersion: skaffold/v2beta16
+kind: Config
+metadata:
+  name: nextjs-blog
+
+build:
+  artifacts:
+    - image: nextjs-blog-image
+      context: .
+      # https://skaffold.dev/docs/pipeline-stages/builders/buildpacks/
+      buildpacks:
+        # https://paketo.io/docs/buildpacks/language-family-buildpacks/nodejs/
+        builder: gcr.io/paketo-buildpacks/builder:0.1.108-base
+        buildpacks:
+          - gcr.io/paketo-buildpacks/nodejs:0.3.0
+  local:
+    push: false
+deploy:
+  kustomize:
+    paths:
+      - "dummy"
+
+profiles:
+  - name: local
+    deploy:
+      kustomize:
+        paths:
+          - "manifests/overlays/local"
