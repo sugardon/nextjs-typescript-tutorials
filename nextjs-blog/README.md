@@ -2,6 +2,13 @@ This is a starter template for [Learn Next.js](https://nextjs.org/learn).
 
 ## Run Local
 
+**Temporay run `yarn build` after `yarn install`**
+
+see package.json, postinstall
+
+https://github.com/paketo-buildpacks/nodejs/blob/main/rfcs/0004-npm-scripts.md
+
+
 ### yarn
 
 ```shell
