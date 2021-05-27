@@ -6,7 +6,7 @@ This is a starter template for [Learn Next.js](https://nextjs.org/learn).
 
 see package.json, postinstall
 
-https://github.com/paketo-buildpacks/nodejs/blob/main/rfcs/0004-npm-scripts.md
+<https://github.com/paketo-buildpacks/nodejs/blob/main/rfcs/0004-npm-scripts.md>
 
 ### yarn
 
